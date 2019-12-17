@@ -30,7 +30,7 @@ STREAM = '/tmp/stream'
 # TODO: Better language support -- this mixes new sources regardless of languages
 FEEDS = {
     "other" : ("your custom feed", None),
-    "custom" : ("your custom feed", None),
+    "custom" : ("NHK", "https://www3.nhk.or.jp/rj/podcast/rss/arabic.xml"),
     "BBC" : ("BBC News", "http://podcasts.files.bbci.co.uk/p02nq0gn.rss"),
     "NPR" : ("NPR News Now", "http://www.npr.org/rss/podcast.php?id=500005"),
     "AP" :  ("AP Hourly Radio News", "http://www.spreaker.com/show/1401466/episodes/feed"),
@@ -80,26 +80,28 @@ class NewsSkill(CommonPlaySkill):
             self.handle_latest_news()
 
     def get_rss(self, url=None):
-        url_rss = url
-        if not url_rss:
-            pre_select = self.settings.get("pre_select", "")
-            url_rss = self.settings.get("url_rss")
-            if "not_set" in pre_select:
-                # Use a custom RSS URL
-                url_rss = self.settings.get("url_rss")
-                self.now_playing = None
-            else:
-                # Use the selected preset's URL
-                url_rss = pre_select
-                # Look for the title
-                for feed in FEEDS:
-                    if FEEDS[feed][1] == url_rss:
-                        self.now_playing = FEEDS[feed][0]
+        #url_rss = url
+        #if not url_rss:
+        #    pre_select = self.settings.get("pre_select", "")
+        #    url_rss = self.settings.get("url_rss")
+        #    if "not_set" in pre_select:
+        #        # Use a custom RSS URL
+        #        url_rss = self.settings.get("url_rss")
+        #        self.now_playing = None
+        #    else:
+        #        # Use the selected preset's URL
+        #        url_rss = pre_select
+        #        # Look for the title
+        #        for feed in FEEDS:
+        #            if FEEDS[feed][1] == url_rss:
+        #                self.now_playing = FEEDS[feed][0]
 
-        if not url_rss:
-            # Default to NPR News
-            self.now_playing = FEEDS["NPR"][0]
-            url_rss = FEEDS["NPR"][1]
+        #if not url_rss:
+
+        # Default to custom News
+        self.now_playing = FEEDS["custom"][0]
+        url_rss = FEEDS["custom"][1]
+
         return url_rss
 
     def get_feed(self, url_rss):
