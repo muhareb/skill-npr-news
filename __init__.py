@@ -160,7 +160,9 @@ class NewsSkill(CommonPlaySkill):
             # Show news title, if there is one
             wait_while_speaking()
             # Begin the news stream
-            self.CPS_play(('file://' + STREAM, mime))
+            #aiam# self.CPS_play(('file://' + STREAM, mime))
+            self.CPS_play((url, mime))
+            
 
         except Exception as e:
             self.log.error("Error: {0}".format(e))
